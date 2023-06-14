@@ -1,34 +1,23 @@
+from api.filters import TitleFilter
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404
-from rest_framework import viewsets, status, filters, mixins
-from rest_framework.decorators import action
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework_simplejwt.tokens import AccessToken
-from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters, mixins, status, viewsets
+from rest_framework.decorators import action
 from rest_framework.pagination import PageNumberPagination
-from api.filters import TitleFilter
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework_simplejwt.tokens import AccessToken
+from reviews.models import Category, Genre, Review, Title, User
 
-from reviews.models import Review, Title, User, Genre, Category
-from .serializers import (
-    CommentSerializer,
-    ReviewSerializer,
-    RegistrationSerializer,
-    TokenSerializer,
-    UserSerializer,
-    UserProfileEditSerializer,
-    TitleSerializerCreate,
-    TitleSerializerRead,
-    CategorySerializer,
-    GenreSerializer,
-)
-from .permissions import (
-    AdminOrSuperuser,
-    RewiewsPermission,
-    TitlePermission,
-)
+from .permissions import AdminOrSuperuser, RewiewsPermission, TitlePermission
+from .serializers import (CategorySerializer, CommentSerializer,
+                          GenreSerializer, RegistrationSerializer,
+                          ReviewSerializer, TitleSerializerCreate,
+                          TitleSerializerRead, TokenSerializer,
+                          UserProfileEditSerializer, UserSerializer)
 
 
 def confirmation_code_send(user):
